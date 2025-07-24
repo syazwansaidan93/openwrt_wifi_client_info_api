@@ -1,0 +1,25 @@
+[Unit]
+Description=OpenWrt Router Wifi API
+After=network.target
+
+[Service]
+User=wan
+Group=wan
+WorkingDirectory=/home/wan/openwrt_api
+# Dynamically read host and port from config.json for Gunicorn binding
+ExecStart=/bin/bash -c '\
+    HOST=$(jq -r ".server.host" /home/wan/openwrt_api/config.json); \
+    PORT=$(jq -r ".server.port" /home/wan/openwrt_api/config.json); \
+    if [ -z "$HOST" ] || [ -z "$PORT" ]; then \
+        echo "Error: Host or Port not found in config.json" >&2; \
+        exit 1; \
+    fi; \
+    /home/wan/openwrt_api/venv/bin/gunicorn -w 4 -b "$HOST:$PORT" app:app \
+'
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=openwrt-stats-api
+
+[Install]
+WantedBy=multi-user.target
