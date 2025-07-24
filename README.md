@@ -73,7 +73,7 @@ You can find an example `config.json` in this repository.
     }
   ],
   "server": {
-    "host": "192.168.1.3",
+    "host": "0.0.0.0",
     "port": 3001
   }
 }
