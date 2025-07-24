@@ -1,0 +1,18 @@
+{
+  "routers": [
+    {
+      "id": "router1",
+      "info_url": "http://192.168.1.1/cgi-bin/info.cgi",
+      "dhcp_url": "http://192.168.1.1/cgi-bin/dhcp.cgi"
+    },
+    {
+      "id": "router2",
+      "info_url": "http://192.168.1.2/cgi-bin/info.cgi"
+      // dhcp_url is optional for router2 if it doesn't serve DHCP leases
+    }
+  ],
+  "server": {
+    "host": "192.168.1.3",
+    "port": 3001
+  }
+}
